@@ -13,6 +13,7 @@ MCP Servers:
 - GitHub MCP Server (fetches issues)
 - Supabase MCP Server (queries database)
 - Task Manager MCP Server (add/list/complete tasks)
+- Fun MCP Server (gives random quotes and jokes, whatever you ask for :) 
 ```
 
 ## Features
