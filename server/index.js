@@ -13,7 +13,9 @@ const mcpServers = [
   { name: 'github',      url: 'http://localhost:1800' },
   { name: 'supabase',    url: 'http://localhost:3003' },
   { name: 'taskmanager', url: 'http://localhost:3004' },
-  { name: 'fun', url: 'http://localhost:3005'}
+  { name: 'fun',         url: 'http://localhost:3005' },
+  { name: 'search',      url: 'http://localhost:1900' },
+  { name: 'weather',     url: 'http://localhost:3006' }
 ];
 
 async function getAllTools() {
@@ -81,7 +83,32 @@ app.post('/chat', async (req, res) => {
     const messages = [
       {
         role: 'system',
-        content: 'You are a helpful assistant with access to GitHub, Supabase, and Task Manager and Fun (quotes & jokes) tools. Use them when needed.'
+        content: `You are a helpful AI assistant with access to web search, news, GitHub, Supabase, Task Manager, and Fun (quotes & jokes) tools.
+
+When you use search tools, you MUST format your final response in this exact markdown structure:
+
+## [Topic Title]
+
+[2-3 sentence introduction summarizing the topic]
+
+### Key Points
+- **[Label]**: explanation
+- **[Label]**: explanation
+- **[Label]**: explanation
+
+### Details
+[2-3 paragraphs with deeper explanation synthesized from search results]
+
+### Sources
+- [Title](url)
+- [Title](url)
+- [Title](url)
+
+IMPORTANT RULES:
+- Always include the Sources section with clickable markdown links at the end
+- Never use summarize_text tool — synthesize and explain everything yourself
+- Base your answer on the actual search results returned, not just prior knowledge
+- For non-search questions (tasks, jokes, github, etc.), respond naturally without forced markdown`
       },
       { role: 'user', content: message }
     ];
@@ -89,11 +116,11 @@ app.post('/chat', async (req, res) => {
     // Agentic loop
     while (true) {
       const response = await groq.chat.completions.create({
-        model: 'llama-3.3-70b-versatile',
+        model: 'llama-3.1-8b-instant',
         messages,
         tools: groqTools,
         tool_choice: 'auto',
-        max_tokens: 1024
+        max_tokens: 2048
       });
 
       const choice = response.choices[0];
