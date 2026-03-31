@@ -32,14 +32,16 @@ MCP Servers:
    cd ../github-mcp && npm install
    cd ../supabase-mcp && npm install
    cd ../mcp-server && npm install
+   cd ../fun-mcp && npm install
    ```
 
 2. **Environment Variables**:
    - Copy `.env` and fill in your API keys:
-     - `GEMINI_API_KEY`: Your Google Gemini API key
+     - `GROQ_API_KEY`: Your Google Gemini API key
      - `GITHUB_TOKEN`: GitHub personal access token
      - `SUPABASE_URL`: Your Supabase project URL
      - `SUPABASE_ANON_KEY`: Supabase anon key
+     - `SUPABASE_MANAGEMENT_TOKEN` : Your Supabase management key
 
 3. **Start MCP Servers**:
    ```bash
@@ -51,6 +53,9 @@ MCP Servers:
 
    # Terminal 3: Task Manager MCP Server
    cd mcp-server && npm start
+
+   #Terminal 4: Custom mcp Server - Fun MCP
+   cd fun-mcp && npm install
    ```
 
 4. **Start Backend**:
@@ -105,6 +110,11 @@ The Model Context Protocol (MCP) allows AI models to call tools from external se
 ### Supabase
 - `query_table(table, select, filter)`: Query database table
 
+### Custom Mcp(Fun MCP)
+- `random_quote` : Generate a random quote
+- `random_joke` : Gives a random joke
+
+
 ## Demo Steps
 
 1. Start all servers as described in setup
@@ -114,12 +124,13 @@ The Model Context Protocol (MCP) allows AI models to call tools from external se
 5. Try: "Create a new repository called my-awesome-project"
 6. Try: "Show open issues in repo facebook/react"
 7. Try: "Fetch all users from users table"
+8. Try: "Give a motivational quote."
 
 ## Technologies
 
 - **Frontend**: React 18, Vite, Tailwind CSS
 - **Backend**: Node.js, Express
-- **AI**: Google Gemini
+- **AI**: Groq
 - **MCP**: @modelcontextprotocol/sdk
 - **APIs**: GitHub API, Supabase
 - **Database**: Supabase (for remote queries)
